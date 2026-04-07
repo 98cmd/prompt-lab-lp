@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -28,12 +28,15 @@ import {
   Brain,
   Keyboard,
   UserMinus,
+  List,
+  X,
 } from "@phosphor-icons/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ClientPage() {
   const mainRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -86,8 +89,8 @@ export default function ClientPage() {
 
       {/* ナビゲーション */}
       <nav className="fixed w-full top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="glass-panel rounded-full px-6 py-3 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4">
+          <div className="glass-panel rounded-full px-4 md:px-6 py-2.5 md:py-3 flex justify-between items-center">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white">
                 <Sparkle size={18} weight="fill" />
@@ -102,19 +105,56 @@ export default function ClientPage() {
               <a href="#cases" className="hover:text-brand transition-colors">導入事例</a>
               <a href="#pricing" className="hover:text-brand transition-colors">料金</a>
             </div>
-            <a
-              href="#contact"
-              className="bg-navydark text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-brand transition-colors"
-              style={{ boxShadow: "0 4px 14px 0 rgba(124,92,252,0.39)" }}
-            >
-              無料相談
-            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href="#contact"
+                className="hidden sm:inline-flex bg-navydark text-white px-5 py-3 rounded-full text-sm font-medium hover:bg-brand transition-colors min-h-[44px] items-center"
+                style={{ boxShadow: "0 4px 14px 0 rgba(124,92,252,0.39)" }}
+              >
+                無料相談
+              </a>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="md:hidden w-11 h-11 flex items-center justify-center rounded-full hover:bg-navydark/5 transition-colors"
+                aria-label="メニュー"
+              >
+                {menuOpen ? <X size={22} /> : <List size={22} />}
+              </button>
+            </div>
           </div>
+
+          {/* モバイルメニュー */}
+          {menuOpen && (
+            <div className="md:hidden mt-2 glass-panel rounded-2xl p-4 flex flex-col gap-1">
+              {[
+                { href: "#problem", label: "課題" },
+                { href: "#services", label: "サービス" },
+                { href: "#cases", label: "導入事例" },
+                { href: "#pricing", label: "料金" },
+              ].map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-sm font-medium hover:bg-brand/10 hover:text-brand transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="block mt-2 text-center bg-navydark text-white px-4 py-3 rounded-full text-sm font-medium hover:bg-brand transition-colors"
+              >
+                無料相談
+              </a>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* ヒーロー */}
-      <section className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 min-h-screen flex items-center">
+      <section className="relative pt-28 pb-16 md:pt-40 md:pb-20 lg:pt-48 lg:pb-32 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative z-10 space-y-8 hero-stagger">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-sm text-brand font-medium">
@@ -122,7 +162,7 @@ export default function ClientPage() {
               月額制 AIエージェント導入パートナー
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-bold leading-[1.15] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.15] tracking-tight">
               労働集約型から、
               <br />
               <span className="text-brand">AI主導</span>の組織へ。
@@ -161,8 +201,8 @@ export default function ClientPage() {
           </div>
 
           {/* ダッシュボードUI */}
-          <div className="relative z-10 w-full h-[500px] lg:h-[600px] hero-dashboard">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[500px] aspect-[4/3] glass-panel rounded-3xl p-6 flex flex-col gap-4 z-20">
+          <div className="relative z-10 w-full h-[380px] sm:h-[450px] md:h-[500px] lg:h-[600px] hero-dashboard">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-16px)] max-w-[500px] aspect-[4/3] glass-panel rounded-2xl md:rounded-3xl p-4 md:p-6 flex flex-col gap-3 md:gap-4 z-20">
               <div className="flex justify-between items-center border-b border-navydark/5 pb-4">
                 <div className="flex items-center gap-3">
                   <Robot size={24} className="text-brand" />
@@ -206,12 +246,12 @@ export default function ClientPage() {
             </div>
 
             {/* フロートカード */}
-            <div className="absolute -top-4 -right-4 lg:-right-8 w-48 glass-panel rounded-2xl p-4 z-30 animate-float-slow" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
+            <div className="absolute -top-2 right-0 sm:-top-4 sm:-right-4 lg:-right-8 w-36 sm:w-48 glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 z-30 animate-float-slow" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
               <p className="text-[10px] text-navydark/60 font-[family-name:var(--font-outfit)] font-semibold uppercase tracking-wider mb-1">人的工数の削減</p>
-              <span className="font-[family-name:var(--font-outfit)] font-bold text-3xl">-95%</span>
+              <span className="font-[family-name:var(--font-outfit)] font-bold text-2xl sm:text-3xl">-95%</span>
             </div>
 
-            <div className="absolute -bottom-8 -left-4 lg:-left-12 w-64 glass-panel rounded-2xl p-4 z-30 animate-float-med" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
+            <div className="absolute -bottom-4 left-0 sm:-bottom-8 sm:-left-4 lg:-left-12 w-52 sm:w-64 glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 z-30 animate-float-med" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
               <p className="text-[10px] text-navydark/60 font-[family-name:var(--font-outfit)] font-semibold uppercase tracking-wider mb-2">コスト推移</p>
               <div className="h-16 w-full flex items-end justify-between gap-1">
                 {[90, 85, 80].map((h, i) => (
@@ -236,7 +276,7 @@ export default function ClientPage() {
           <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-6 block">
             The Paradigm Shift
           </span>
-          <h2 className="text-3xl lg:text-5xl font-bold leading-tight mb-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight mb-8">
             「人がやるべきではない仕事」に、
             <br />
             まだコストをかけていませんか？
@@ -259,7 +299,7 @@ export default function ClientPage() {
             <p className="font-[family-name:var(--font-outfit)] font-medium tracking-widest text-warning uppercase text-sm mb-4 flex items-center gap-2">
               <WarningCircle size={18} /> The Cost of Inaction
             </p>
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight mb-6">
               行動しない<span className="text-warning">代償</span>
             </h2>
             <p className="text-muted text-lg leading-relaxed">
@@ -270,7 +310,7 @@ export default function ClientPage() {
           {/* タイムライン */}
           <div className="relative w-full flex flex-col pt-10">
             {/* 縦線 */}
-            <div className="absolute left-[39px] lg:left-1/2 top-0 bottom-0 w-px lg:-translate-x-1/2 pointer-events-none z-0">
+            <div className="absolute left-[27px] sm:left-[39px] lg:left-1/2 top-0 bottom-0 w-px lg:-translate-x-1/2 pointer-events-none z-0">
               <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 2 100">
                 <line x1="1" y1="0" x2="1" y2="100" className="dash-line" stroke="#D96C6C" strokeWidth="2" strokeOpacity="0.3" vectorEffect="non-scaling-stroke" />
               </svg>
@@ -281,12 +321,12 @@ export default function ClientPage() {
               <div className="hidden lg:flex w-1/2 justify-end pr-16 text-right">
                 <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2026</div>
               </div>
-              <div className="absolute left-0 lg:relative lg:left-auto w-20 h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md lg:-translate-x-0">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
+              <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md lg:-translate-x-0">
+                <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md">
                   <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-navydark">26</span>
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 pl-28 lg:pl-16">
+              <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pl-16">
                 <div className="glass-panel-darker rounded-2xl p-8 relative overflow-hidden hover:border-warning/30 transition-colors">
                   <div className="absolute top-0 left-0 w-1 h-full bg-warning/50" />
                   <h3 className="text-xl font-bold mb-3 flex items-center gap-3">
@@ -305,12 +345,12 @@ export default function ClientPage() {
               <div className="hidden lg:flex w-1/2 pl-16 text-left">
                 <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2027</div>
               </div>
-              <div className="absolute left-0 lg:relative lg:left-auto w-20 h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md">
+              <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
+                <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md">
                   <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-navydark">27</span>
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 pl-28 lg:pr-16 lg:pl-0 text-left lg:text-right">
+              <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pr-16 lg:pl-0 text-left lg:text-right">
                 <div className="glass-panel-darker rounded-2xl p-8 relative overflow-hidden hover:border-warning/50 transition-colors">
                   <div className="absolute top-0 right-0 w-1 h-full bg-warning/70 hidden lg:block" />
                   <div className="absolute top-0 left-0 w-1 h-full bg-warning/70 lg:hidden" />
@@ -330,12 +370,12 @@ export default function ClientPage() {
               <div className="hidden lg:flex w-1/2 justify-end pr-16 text-right">
                 <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2030</div>
               </div>
-              <div className="absolute left-0 lg:relative lg:left-auto w-20 h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-warning">
+              <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
+                <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-warning">
                   <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-warning">30</span>
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 pl-28 lg:pl-16">
+              <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pl-16">
                 <div className="px-8 py-10 rounded-2xl bg-white border border-warning/20 relative overflow-hidden" style={{ boxShadow: "0 16px 48px rgba(217,108,108,0.1)" }}>
                   <div className="absolute inset-0 bg-gradient-to-br from-warning/5 to-transparent pointer-events-none" />
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-warning relative z-10">
@@ -362,7 +402,7 @@ export default function ClientPage() {
             <p className="font-[family-name:var(--font-outfit)] font-medium tracking-widest text-brand uppercase text-sm mb-4 flex items-center justify-center gap-2">
               <Sparkle size={18} weight="fill" /> After the Shift
             </p>
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight mb-6">
               AI実装後の<span className="text-brand">世界</span>
             </h2>
             <p className="text-muted text-lg max-w-2xl mx-auto">
@@ -548,7 +588,7 @@ export default function ClientPage() {
               <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-2 block">
                 Proven Results
               </span>
-              <h2 className="text-3xl lg:text-5xl font-bold">圧倒的なROIの証明</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold">圧倒的なROIの証明</h2>
             </div>
             <p className="text-navydark/60 max-w-sm mt-4 md:mt-0 text-sm">
               私たちは概念実証(PoC)で終わりません。実業務への実装と、実際のコスト削減効果にコミットします。
@@ -647,15 +687,15 @@ export default function ClientPage() {
           {/* 統計カード */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             {/* 生産性 */}
-            <div className="glass-panel p-10 rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
+            <div className="glass-panel p-6 sm:p-10 rounded-2xl sm:rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand/10 rounded-bl-full flex items-center justify-center group-hover:scale-110 transition-transform">
                 <TrendUp size={28} weight="fill" className="text-brand absolute top-6 right-6" />
               </div>
               <p className="text-sm font-bold text-muted tracking-wider mb-8">生産性向上</p>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-7xl text-navydark tracking-tighter">40</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-4xl text-brand font-bold">%</span>
+                  <span className="font-[family-name:var(--font-outfit)] font-black text-5xl md:text-7xl text-navydark tracking-tighter">40</span>
+                  <span className="font-[family-name:var(--font-outfit)] text-3xl md:text-4xl text-brand font-bold">%</span>
                 </div>
                 <p className="text-sm text-navydark font-medium mt-4 pt-4 border-t border-navydark/10">
                   AI導入企業の平均生産性向上率（McKinsey 2025年調査）
@@ -664,13 +704,13 @@ export default function ClientPage() {
             </div>
 
             {/* 日本の導入率 */}
-            <div className="glass-panel p-10 rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
+            <div className="glass-panel p-6 sm:p-10 rounded-2xl sm:rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
               <p className="text-sm font-bold text-muted tracking-wider mb-8">国内AI導入率</p>
               <div className="space-y-2">
                 <p className="text-xs text-muted mb-[-10px] ml-1">国内企業の本格導入率はわずか</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-8xl text-brand tracking-tighter">20</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-4xl text-brand font-bold">%</span>
+                  <span className="font-[family-name:var(--font-outfit)] font-black text-6xl md:text-8xl text-brand tracking-tighter">20</span>
+                  <span className="font-[family-name:var(--font-outfit)] text-3xl md:text-4xl text-brand font-bold">%</span>
                 </div>
                 <p className="text-sm text-navydark font-bold mt-4 bg-brand/10 text-brand inline-block px-3 py-1 rounded-full">
                   今動けば、圧倒的な先行者利益
@@ -679,13 +719,13 @@ export default function ClientPage() {
             </div>
 
             {/* ROI達成速度 */}
-            <div className="glass-panel p-10 rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
+            <div className="glass-panel p-6 sm:p-10 rounded-2xl sm:rounded-[2rem] flex flex-col justify-between relative overflow-hidden group reveal">
               <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-brand to-transparent opacity-50" />
               <p className="text-sm font-bold text-muted tracking-wider mb-8">平均投資回収期間</p>
               <div>
                 <div className="flex items-baseline gap-2">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-7xl text-navydark tracking-tighter">3</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-2xl text-muted font-medium tracking-wider">ヶ月</span>
+                  <span className="font-[family-name:var(--font-outfit)] font-black text-5xl md:text-7xl text-navydark tracking-tighter">3</span>
+                  <span className="font-[family-name:var(--font-outfit)] text-xl md:text-2xl text-muted font-medium tracking-wider">ヶ月</span>
                 </div>
                 <p className="text-sm text-navydark font-medium mt-4 pt-4 border-t border-navydark/10">
                   Prompt LAB導入後、投資回収（損益分岐点）に達するまでの平均期間
@@ -695,14 +735,14 @@ export default function ClientPage() {
           </div>
 
           {/* 問いかけ CTA */}
-          <div className="glass-panel rounded-[3rem] p-12 lg:p-24 text-center relative overflow-hidden reveal" style={{ background: "rgba(255,255,255,0.6)", boxShadow: "0 24px 80px rgba(26,26,46,0.08)" }}>
+          <div className="glass-panel rounded-2xl sm:rounded-[3rem] p-6 sm:p-12 lg:p-24 text-center relative overflow-hidden reveal" style={{ background: "rgba(255,255,255,0.6)", boxShadow: "0 24px 80px rgba(26,26,46,0.08)" }}>
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-brand/20 blur-[60px] pointer-events-none" />
             <div className="absolute -bottom-20 -right-20 text-brand/5 pointer-events-none">
               <Brain size={300} weight="fill" />
             </div>
             <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
               <p className="font-[family-name:var(--font-outfit)] font-bold tracking-[0.2em] text-brand text-sm mb-6">THE REVOLUTION IS NOW</p>
-              <h2 className="text-4xl lg:text-6xl font-black text-navydark leading-tight mb-12 tracking-tight py-2">
+              <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black text-navydark leading-tight mb-8 sm:mb-12 tracking-tight py-2">
                 あなたの会社は、
                 <br />
                 <span className="relative inline-block mt-4">
@@ -742,7 +782,7 @@ export default function ClientPage() {
             <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-4 block">
               Pricing
             </span>
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6">
               シンプルな月額プラン。
             </h2>
             <p className="text-lg text-navydark/70 max-w-2xl mx-auto">
@@ -822,7 +862,7 @@ export default function ClientPage() {
                 </ul>
                 <a
                   href="#contact"
-                  className={`block text-center py-3.5 rounded-full font-medium transition-all duration-300 ${
+                  className={`block text-center py-3.5 min-h-[44px] flex items-center justify-center rounded-full font-medium transition-all duration-300 ${
                     plan.popular
                       ? "bg-brand text-white hover:bg-navydark shadow-[0_8px_20px_-4px_rgba(124,92,252,0.5)]"
                       : "glass-button"
@@ -936,7 +976,7 @@ export default function ClientPage() {
           style={{ background: "rgba(124,92,252,0.2)", filter: "blur(150px)" }}
         />
         <div className="max-w-4xl mx-auto px-6 text-center reveal relative z-10">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6 tracking-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-6xl font-bold mb-6 tracking-tight">
             AIと働く、新しい組織図を描こう。
           </h2>
           <p className="text-lg text-navydark/70 mb-10 max-w-xl mx-auto">
