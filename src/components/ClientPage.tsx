@@ -1146,16 +1146,16 @@ export default function ClientPage() {
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-outfit)] font-semibold mb-4">会社情報</h4>
+            <h4 className="font-[family-name:var(--font-outfit)] font-semibold mb-4">運営会社</h4>
             <ul className="space-y-2 text-sm text-navydark/60">
-              <li><a href="#" className="hover:text-brand transition-colors">会社概要</a></li>
-              <li><a href="#" className="hover:text-brand transition-colors">プライバシーポリシー</a></li>
-              <li><a href="#" className="hover:text-brand transition-colors">お問い合わせ</a></li>
+              <li className="font-medium text-navydark/80">株式会社COMON CENTER</li>
+              <li>代表取締役 桑原竣亮</li>
+              <li>〒102-0074<br />東京都千代田区九段南1-5-6<br />りそな九段ビル 5F</li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-6 text-center text-xs text-navydark/40 border-t border-navydark/5 pt-8 font-[family-name:var(--font-outfit)]">
-          &copy; 2026 COMON CENTER Inc. All rights reserved.
+        <div className="max-w-7xl mx-auto px-6 text-center text-xs text-navydark/40 border-t border-navydark/5 pt-8">
+          &copy; 2026 株式会社COMON CENTER All rights reserved.
         </div>
       </footer>
     </div>
