@@ -13,8 +13,6 @@ import {
   RocketLaunch,
   Intersect,
   TrendUp,
-  ArrowUpRight,
-  Handshake,
   CaretDown,
   CheckCircle,
   WarningCircle,
@@ -43,19 +41,21 @@ export default function ClientPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // スクロールで各セクション表示
-      gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
-        gsap.from(el, {
-          y: 50,
-          opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            once: true,
-          },
-        });
+      // スクロールで各セクション表示（batch で効率化）
+      // 初期状態を先に設定してフリッカーを防止
+      gsap.set(".reveal", { opacity: 0, y: 50 });
+      ScrollTrigger.batch(".reveal", {
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            stagger: 0.1,
+          });
+        },
+        start: "top 85%",
+        once: true,
       });
 
       // ヒーローのスタガー
@@ -98,7 +98,7 @@ export default function ClientPage() {
               <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white">
                 <Sparkle size={18} weight="fill" />
               </div>
-              <span className="font-[family-name:var(--font-outfit)] font-semibold text-lg tracking-tight">
+              <span className="font-display font-semibold text-lg tracking-tight">
                 AI Prompt LAB
               </span>
             </div>
@@ -120,6 +120,7 @@ export default function ClientPage() {
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="md:hidden w-11 h-11 flex items-center justify-center rounded-full hover:bg-navydark/5 transition-colors"
                 aria-label="メニュー"
+                aria-expanded={menuOpen}
               >
                 {menuOpen ? <X size={22} /> : <List size={22} />}
               </button>
@@ -192,12 +193,12 @@ export default function ClientPage() {
 
             <div className="pt-12 border-t border-navydark/10 flex items-center gap-6">
               <div className="text-sm">
-                <span className="block font-[family-name:var(--font-outfit)] font-bold text-2xl">92%</span>
+                <span className="block font-display font-bold text-2xl">92%</span>
                 <span className="text-navydark/60">平均工数削減率</span>
               </div>
               <div className="w-px h-10 bg-navydark/10" />
               <div className="text-sm">
-                <span className="block font-[family-name:var(--font-outfit)] font-bold text-2xl">0</span>
+                <span className="block font-display font-bold text-2xl">0</span>
                 <span className="text-navydark/60">導入・初期費用</span>
               </div>
             </div>
@@ -210,11 +211,11 @@ export default function ClientPage() {
                 <div className="flex items-center gap-3">
                   <Robot size={24} className="text-brand" />
                   <div>
-                    <h3 className="font-[family-name:var(--font-outfit)] font-semibold text-sm">AIエージェント稼働状況</h3>
+                    <h3 className="font-display font-semibold text-sm">AIエージェント稼働状況</h3>
                     <p className="text-[10px] text-navydark/50">リアルタイム最適化実行中</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-[family-name:var(--font-outfit)] font-medium">
+                <div className="flex items-center gap-2 bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-display font-medium">
                   <div className="pulse-dot" />
                   正常稼働中
                 </div>
@@ -227,11 +228,11 @@ export default function ClientPage() {
                       <FileText size={16} />
                     </div>
                     <div>
-                      <p className="font-[family-name:var(--font-outfit)] text-xs font-bold">請求書処理</p>
+                      <p className="font-display text-xs font-bold">請求書処理</p>
                       <p className="text-[10px] text-navydark/60">エージェント #01</p>
                     </div>
                   </div>
-                  <span className="font-[family-name:var(--font-outfit)] text-xs text-green-600 font-semibold">0.2秒で完了</span>
+                  <span className="font-display text-xs text-green-600 font-semibold">0.2秒で完了</span>
                 </div>
                 <div className="bg-white/40 rounded-xl p-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -239,23 +240,23 @@ export default function ClientPage() {
                       <Users size={16} />
                     </div>
                     <div>
-                      <p className="font-[family-name:var(--font-outfit)] text-xs font-bold">問い合わせ対応</p>
+                      <p className="font-display text-xs font-bold">問い合わせ対応</p>
                       <p className="text-[10px] text-navydark/60">エージェント #02</p>
                     </div>
                   </div>
-                  <span className="font-[family-name:var(--font-outfit)] text-xs text-brand font-semibold">生成中...</span>
+                  <span className="font-display text-xs text-brand font-semibold">生成中...</span>
                 </div>
               </div>
             </div>
 
             {/* フロートカード */}
             <div className="absolute -top-2 right-0 sm:-top-4 sm:-right-4 lg:-right-8 w-36 sm:w-48 glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 z-30 animate-float-slow" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
-              <p className="text-[10px] text-navydark/60 font-[family-name:var(--font-outfit)] font-semibold uppercase tracking-wider mb-1">人的工数の削減</p>
-              <span className="font-[family-name:var(--font-outfit)] font-bold text-2xl sm:text-3xl">-95%</span>
+              <p className="text-[10px] text-navydark/60 font-display font-semibold uppercase tracking-wider mb-1">人的工数の削減</p>
+              <span className="font-display font-bold text-2xl sm:text-3xl">-95%</span>
             </div>
 
             <div className="absolute -bottom-4 left-0 sm:-bottom-8 sm:-left-4 lg:-left-12 w-52 sm:w-64 glass-panel rounded-xl sm:rounded-2xl p-3 sm:p-4 z-30 animate-float-med" style={{ boxShadow: "0 12px 40px rgba(26,26,46,0.08)" }}>
-              <p className="text-[10px] text-navydark/60 font-[family-name:var(--font-outfit)] font-semibold uppercase tracking-wider mb-2">コスト推移</p>
+              <p className="text-[10px] text-navydark/60 font-display font-semibold uppercase tracking-wider mb-2">コスト推移</p>
               <div className="h-16 w-full flex items-end justify-between gap-1">
                 {[90, 85, 80].map((h, i) => (
                   <div key={`before-${i}`} className="w-full bg-navydark/20 rounded-t-sm" style={{ height: `${h}%` }} />
@@ -264,7 +265,7 @@ export default function ClientPage() {
                   <div key={`after-${i}`} className="w-full bg-brand rounded-t-sm" style={{ height: `${h}%` }} />
                 ))}
               </div>
-              <div className="flex justify-between mt-2 pt-2 border-t border-navydark/5 text-[9px] font-[family-name:var(--font-outfit)] text-navydark/40">
+              <div className="flex justify-between mt-2 pt-2 border-t border-navydark/5 text-[9px] font-display text-navydark/40">
                 <span>導入前</span>
                 <span>導入後</span>
               </div>
@@ -276,7 +277,7 @@ export default function ClientPage() {
       {/* 課題提起 */}
       <section id="problem" className="py-24 lg:py-32 relative">
         <div className="max-w-4xl mx-auto px-6 text-center reveal">
-          <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-6 block">
+          <span className="font-display uppercase tracking-widest text-brand text-sm font-semibold mb-6 block">
             The Paradigm Shift
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight mb-8">
@@ -299,7 +300,7 @@ export default function ClientPage() {
         <div className="absolute inset-0 bg-baseDark/50 rounded-none pointer-events-none" />
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="mb-16 max-w-2xl reveal">
-            <p className="font-[family-name:var(--font-outfit)] font-medium tracking-widest text-warning uppercase text-sm mb-4 flex items-center gap-2">
+            <p className="font-display font-medium tracking-widest text-warning uppercase text-sm mb-4 flex items-center gap-2">
               <WarningCircle size={18} /> The Cost of Inaction
             </p>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight mb-6">
@@ -322,11 +323,11 @@ export default function ClientPage() {
             {/* 2026 */}
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center w-full mb-12 lg:mb-24 reveal">
               <div className="hidden lg:flex w-1/2 justify-end pr-16 text-right">
-                <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2026</div>
+                <div className="font-display text-7xl font-bold text-black/5 leading-none">2026</div>
               </div>
               <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md lg:-translate-x-0">
                 <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-navydark">26</span>
+                  <span className="font-display font-bold text-xl text-navydark">26</span>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pl-16">
@@ -346,11 +347,11 @@ export default function ClientPage() {
             {/* 2027 */}
             <div className="relative z-10 flex flex-col lg:flex-row-reverse items-start lg:items-center w-full mb-12 lg:mb-24 reveal">
               <div className="hidden lg:flex w-1/2 pl-16 text-left">
-                <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2027</div>
+                <div className="font-display text-7xl font-bold text-black/5 leading-none">2027</div>
               </div>
               <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
                 <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-navydark">27</span>
+                  <span className="font-display font-bold text-xl text-navydark">27</span>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pr-16 lg:pl-0 text-left lg:text-right">
@@ -371,11 +372,11 @@ export default function ClientPage() {
             {/* 2030 */}
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center w-full reveal">
               <div className="hidden lg:flex w-1/2 justify-end pr-16 text-right">
-                <div className="font-[family-name:var(--font-outfit)] text-7xl font-bold text-black/5 leading-none">2030</div>
+                <div className="font-display text-7xl font-bold text-black/5 leading-none">2030</div>
               </div>
               <div className="absolute left-0 lg:relative lg:left-auto w-14 h-14 sm:w-20 sm:h-20 bg-baseDark rounded-full border border-white/50 flex items-center justify-center backdrop-blur-md">
                 <div className="w-10 h-10 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-warning">
-                  <span className="font-[family-name:var(--font-outfit)] font-bold text-xl text-warning">30</span>
+                  <span className="font-display font-bold text-xl text-warning">30</span>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 pl-20 sm:pl-28 lg:pl-16">
@@ -402,7 +403,7 @@ export default function ClientPage() {
       <section className="py-24 lg:py-32 relative">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-20 reveal">
-            <p className="font-[family-name:var(--font-outfit)] font-medium tracking-widest text-brand uppercase text-sm mb-4 flex items-center justify-center gap-2">
+            <p className="font-display font-medium tracking-widest text-brand uppercase text-sm mb-4 flex items-center justify-center gap-2">
               <Sparkle size={18} weight="fill" /> After the Shift
             </p>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight mb-6">
@@ -473,7 +474,7 @@ export default function ClientPage() {
                   <span className="text-navydark font-bold">高精度なドラフト生成</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="font-[family-name:var(--font-outfit)] text-4xl font-black text-brand">3</div>
+                  <div className="font-display text-4xl font-black text-brand">3</div>
                   <div className="flex flex-col">
                     <span className="text-sm font-bold tracking-wide">分で完了</span>
                     <span className="text-xs text-muted">人間は「編集と思考」のみ</span>
@@ -572,7 +573,7 @@ export default function ClientPage() {
                 <div className={`w-14 h-14 rounded-2xl ${p.iconBg} flex items-center justify-center mb-8`}>
                   {p.icon}
                 </div>
-                <h3 className="font-[family-name:var(--font-outfit)] text-2xl font-bold mb-4">
+                <h3 className="font-display text-2xl font-bold mb-4">
                   {p.num}. {p.title}
                 </h3>
                 <h4 className="text-lg font-bold mb-3">{p.sub}</h4>
@@ -598,7 +599,7 @@ export default function ClientPage() {
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand/20 bg-brand/5 backdrop-blur-md mb-6">
                   <Clock size={16} weight="fill" className="text-brand" />
-                  <span className="font-[family-name:var(--font-outfit)] text-brand font-bold tracking-widest text-xs uppercase">Time Savings</span>
+                  <span className="font-display text-brand font-bold tracking-widest text-xs uppercase">Time Savings</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.2] tracking-tight text-navydark">
                   圧倒的な
@@ -613,11 +614,11 @@ export default function ClientPage() {
               {/* 大数字 + ゲージ */}
               <div className="mt-12 sm:mt-16 relative z-10">
                 <div className="flex items-baseline gap-1 sm:gap-2 mb-8">
-                  <span className="font-[family-name:var(--font-outfit)] text-7xl sm:text-8xl md:text-[8rem] leading-none font-black text-brand tracking-tighter">
+                  <span className="font-display text-7xl sm:text-8xl md:text-[8rem] leading-none font-black text-brand tracking-tighter">
                     85
                   </span>
                   <div className="flex flex-col">
-                    <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-5xl font-bold text-brand leading-none">%</span>
+                    <span className="font-display text-3xl sm:text-5xl font-bold text-brand leading-none">%</span>
                     <span className="text-lg sm:text-2xl font-bold text-navydark mt-1">削減</span>
                   </div>
                 </div>
@@ -631,14 +632,14 @@ export default function ClientPage() {
                     </div>
                     <div className="flex flex-col text-right">
                       <span className="text-[10px] sm:text-xs font-bold tracking-wider text-muted/60 uppercase">Monthly Hours</span>
-                      <span className="font-[family-name:var(--font-outfit)] font-bold text-navydark text-lg">業務時間推移</span>
+                      <span className="font-display font-bold text-navydark text-lg">業務時間推移</span>
                     </div>
                   </div>
 
                   <div className="relative w-full pt-4 pb-8">
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-muted/60 mb-2">
                       <span>導入前</span>
-                      <span className="font-[family-name:var(--font-outfit)]">4,800 h/月</span>
+                      <span className="font-display">4,800 h/月</span>
                     </div>
                     <div className="h-6 sm:h-8 w-full rounded-2xl bg-white border border-brand/10 shadow-inner relative overflow-hidden eliminated-pattern">
                       <div className="absolute top-0 left-0 h-full rounded-2xl bg-gradient-to-r from-brand to-brand-light" style={{ width: "15%", boxShadow: "0 0 20px rgba(124,92,252,0.4)" }}>
@@ -647,7 +648,7 @@ export default function ClientPage() {
                     </div>
                     <div className="mt-2 text-brand font-bold text-xs sm:text-sm flex items-center gap-2">
                       <div className="w-0.5 h-3 bg-brand ml-4" />
-                      導入後 <span className="font-[family-name:var(--font-outfit)] text-xl sm:text-2xl font-black">720 <span className="text-sm text-brand/80">h/月</span></span>
+                      導入後 <span className="font-display text-xl sm:text-2xl font-black">720 <span className="text-sm text-brand/80">h/月</span></span>
                     </div>
                   </div>
                 </div>
@@ -670,7 +671,7 @@ export default function ClientPage() {
                       </div>
                       <h3 className="font-bold text-navydark text-sm lg:text-base">{item.task}</h3>
                     </div>
-                    <div className="font-[family-name:var(--font-outfit)] text-3xl lg:text-4xl font-black text-brand tracking-tighter">
+                    <div className="font-display text-3xl lg:text-4xl font-black text-brand tracking-tighter">
                       {item.reduction}%
                       <span className="text-sm font-medium block text-right -mt-1">減</span>
                     </div>
@@ -678,12 +679,12 @@ export default function ClientPage() {
 
                   <div className="space-y-3 mt-auto">
                     <div className="flex justify-between items-baseline">
-                      <span className="font-[family-name:var(--font-outfit)] text-muted/60 font-medium text-sm">
+                      <span className="font-display text-muted/60 font-medium text-sm">
                         <span className="text-[10px] uppercase block mb-[-2px]">導入前</span>
                         {item.before}
                       </span>
                       <ArrowRight size={14} className="text-brand/40" />
-                      <span className="font-[family-name:var(--font-outfit)] text-brand font-bold text-xl text-right">
+                      <span className="font-display text-brand font-bold text-xl text-right">
                         <span className="text-[10px] block text-right mb-[-2px]">導入後</span>
                         {item.after}
                       </span>
@@ -710,7 +711,7 @@ export default function ClientPage() {
           <div className="text-center mb-16 sm:mb-20 reveal">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 border border-white/80 backdrop-blur-md mb-6">
               <Sparkle size={14} weight="fill" className="text-brand" />
-              <span className="font-[family-name:var(--font-outfit)] text-xs font-semibold tracking-[0.2em] text-navydark/60 uppercase">実績紹介</span>
+              <span className="font-display text-xs font-semibold tracking-[0.2em] text-navydark/60 uppercase">実績紹介</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-navydark mb-6">
               導入<span className="text-brand">事例</span>
@@ -730,7 +731,7 @@ export default function ClientPage() {
               <div className="w-full xl:w-2/5 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4 mb-6">
-                    <span className="font-[family-name:var(--font-outfit)] text-4xl font-light text-navydark/20">01</span>
+                    <span className="font-display text-4xl font-light text-navydark/20">01</span>
                     <div className="h-px flex-1 bg-navydark/10" />
                   </div>
                   <div className="inline-block px-3 py-1 bg-navydark/5 border border-navydark/10 rounded-md text-xs font-bold text-navydark/70 tracking-wider mb-4">
@@ -766,19 +767,19 @@ export default function ClientPage() {
                     <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase flex items-center gap-2">
                       <Users size={16} /> 運用体制
                     </h4>
-                    <div className="px-3 py-1 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-bold font-[family-name:var(--font-outfit)] tracking-wider">
+                    <div className="px-3 py-1 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-bold font-display tracking-wider">
                       94% 削減
                     </div>
                   </div>
                   <div className="flex items-end gap-6 sm:gap-12">
                     <div className="flex flex-col">
                       <span className="text-[10px] text-navydark/40 font-semibold uppercase tracking-widest mb-1">導入前</span>
-                      <span className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl text-navydark/30 line-through font-light">33<span className="text-base ml-1">名</span></span>
+                      <span className="font-display text-2xl sm:text-3xl text-navydark/30 line-through font-light">33<span className="text-base ml-1">名</span></span>
                     </div>
                     <ArrowRight size={20} className="text-brand/40 mb-2" />
                     <div className="flex flex-col">
                       <span className="text-[10px] text-brand font-semibold uppercase tracking-widest mb-1">導入後</span>
-                      <span className="font-[family-name:var(--font-outfit)] text-5xl sm:text-6xl md:text-7xl text-brand font-semibold tracking-tight">2<span className="text-2xl sm:text-3xl ml-1 font-bold">名</span></span>
+                      <span className="font-display text-5xl sm:text-6xl md:text-7xl text-brand font-semibold tracking-tight">2<span className="text-2xl sm:text-3xl ml-1 font-bold">名</span></span>
                     </div>
                   </div>
                 </div>
@@ -790,10 +791,10 @@ export default function ClientPage() {
                   </h4>
                   <div>
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="font-[family-name:var(--font-outfit)] text-xl text-navydark/30 line-through">400万円</span>
+                      <span className="font-display text-xl text-navydark/30 line-through">400万円</span>
                       <ArrowRight size={14} className="text-navydark/20" />
                     </div>
-                    <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">50<span className="text-lg text-navydark/60 ml-1">万円</span></span>
+                    <span className="font-display text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">50<span className="text-lg text-navydark/60 ml-1">万円</span></span>
                   </div>
                 </div>
 
@@ -809,7 +810,7 @@ export default function ClientPage() {
                     </div>
                     <div className="h-px w-full bg-navydark/10 my-3" />
                     <div className="flex items-baseline gap-1">
-                      <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">14</span>
+                      <span className="font-display text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">14</span>
                       <span className="text-sm font-bold text-navydark/60">日でローンチ</span>
                     </div>
                   </div>
@@ -824,7 +825,7 @@ export default function ClientPage() {
                 <div>
                   <div className="flex items-center gap-4 mb-6">
                     <div className="h-px flex-1 bg-navydark/10" />
-                    <span className="font-[family-name:var(--font-outfit)] text-4xl font-light text-navydark/20">02</span>
+                    <span className="font-display text-4xl font-light text-navydark/20">02</span>
                   </div>
                   <div className="inline-block px-3 py-1 bg-navydark/5 border border-navydark/10 rounded-md text-xs font-bold text-navydark/70 tracking-wider mb-4 xl:float-right">
                     会員制SaaS
@@ -863,7 +864,7 @@ export default function ClientPage() {
                     {/* 従来 */}
                     <div className="bg-navydark/[0.02] border border-navydark/5 rounded-2xl p-5 flex flex-col gap-2">
                       <span className="text-[10px] font-bold text-navydark/40 tracking-wider">外部見積もり</span>
-                      <div className="font-[family-name:var(--font-outfit)] text-xl text-navydark/40 font-light">初期 400万円</div>
+                      <div className="font-display text-xl text-navydark/40 font-light">初期 400万円</div>
                       <div className="text-sm text-navydark/40 flex items-center gap-1">
                         <Clock size={14} /> 開発期間 3ヶ月
                       </div>
@@ -878,7 +879,7 @@ export default function ClientPage() {
                     {/* AI */}
                     <div className="bg-white/80 border border-brand/20 rounded-2xl p-5 flex flex-col gap-2" style={{ boxShadow: "0 8px 16px -6px rgba(124,92,252,0.15)" }}>
                       <span className="text-[10px] font-bold text-brand tracking-wider">AIプロンプトラボ</span>
-                      <div className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl text-brand font-semibold tracking-tight">
+                      <div className="font-display text-2xl sm:text-3xl text-brand font-semibold tracking-tight">
                         月額 20<span className="text-base text-brand/70 ml-1">万円</span>
                       </div>
                       <div className="text-sm font-bold text-navydark flex items-center gap-1.5">
@@ -928,8 +929,8 @@ export default function ClientPage() {
               <p className="text-sm font-bold text-muted tracking-wider mb-8">生産性向上</p>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-5xl md:text-7xl text-navydark tracking-tighter">40</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-3xl md:text-4xl text-brand font-bold">%</span>
+                  <span className="font-display font-black text-5xl md:text-7xl text-navydark tracking-tighter">40</span>
+                  <span className="font-display text-3xl md:text-4xl text-brand font-bold">%</span>
                 </div>
                 <p className="text-sm text-navydark font-medium mt-4 pt-4 border-t border-navydark/10">
                   AI導入企業の平均生産性向上率（McKinsey 2025年調査）
@@ -943,8 +944,8 @@ export default function ClientPage() {
               <div className="space-y-2">
                 <p className="text-xs text-muted mb-[-10px] ml-1">国内企業の本格導入率はわずか</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-6xl md:text-8xl text-brand tracking-tighter">20</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-3xl md:text-4xl text-brand font-bold">%</span>
+                  <span className="font-display font-black text-6xl md:text-8xl text-brand tracking-tighter">20</span>
+                  <span className="font-display text-3xl md:text-4xl text-brand font-bold">%</span>
                 </div>
                 <p className="text-sm text-navydark font-bold mt-4 bg-brand/10 text-brand inline-block px-3 py-1 rounded-full">
                   今動けば、圧倒的な先行者利益
@@ -958,8 +959,8 @@ export default function ClientPage() {
               <p className="text-sm font-bold text-muted tracking-wider mb-8">平均投資回収期間</p>
               <div>
                 <div className="flex items-baseline gap-2">
-                  <span className="font-[family-name:var(--font-outfit)] font-black text-5xl md:text-7xl text-navydark tracking-tighter">3</span>
-                  <span className="font-[family-name:var(--font-outfit)] text-xl md:text-2xl text-muted font-medium tracking-wider">ヶ月</span>
+                  <span className="font-display font-black text-5xl md:text-7xl text-navydark tracking-tighter">3</span>
+                  <span className="font-display text-xl md:text-2xl text-muted font-medium tracking-wider">ヶ月</span>
                 </div>
                 <p className="text-sm text-navydark font-medium mt-4 pt-4 border-t border-navydark/10">
                   AIプロンプトラボ導入後、投資回収（損益分岐点）に達するまでの平均期間
@@ -975,7 +976,7 @@ export default function ClientPage() {
               <Brain size={300} weight="fill" />
             </div>
             <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-              <p className="font-[family-name:var(--font-outfit)] font-bold tracking-[0.2em] text-brand text-sm mb-6">THE REVOLUTION IS NOW</p>
+              <p className="font-display font-bold tracking-[0.2em] text-brand text-sm mb-6">THE REVOLUTION IS NOW</p>
               <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black text-navydark leading-tight mb-8 sm:mb-12 tracking-tight py-2">
                 あなたの会社は、
                 <br />
@@ -1013,7 +1014,7 @@ export default function ClientPage() {
         />
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16 reveal">
-            <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-4 block">
+            <span className="font-display uppercase tracking-widest text-brand text-sm font-semibold mb-4 block">
               Pricing
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6">
@@ -1080,10 +1081,10 @@ export default function ClientPage() {
                     一番人気
                   </div>
                 )}
-                <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold mb-2">{plan.name}</h3>
+                <h3 className="font-display text-xl font-bold mb-2">{plan.name}</h3>
                 <p className="text-sm text-navydark/60 mb-6">{plan.desc}</p>
                 <div className="mb-6">
-                  <span className="font-[family-name:var(--font-outfit)] text-5xl font-bold">{plan.price}</span>
+                  <span className="font-display text-5xl font-bold">{plan.price}</span>
                   <span className="text-navydark/60 text-sm ml-1">万円 / 月</span>
                 </div>
                 <ul className="space-y-3 mb-8 flex-1">
@@ -1133,7 +1134,7 @@ export default function ClientPage() {
                 {i % 2 === 0 ? (
                   <>
                     <div className="hidden md:block w-5/12 text-right">
-                      <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold">{step.num}. {step.title}</h3>
+                      <h3 className="font-display text-xl font-bold">{step.num}. {step.title}</h3>
                       <p className="text-sm font-semibold mt-1">{step.sub}</p>
                     </div>
                     <div className="absolute left-0 md:relative md:left-auto w-14 h-14 rounded-full glass-panel flex items-center justify-center z-10">
@@ -1141,7 +1142,7 @@ export default function ClientPage() {
                     </div>
                     <div className="w-full md:w-5/12 pl-16 md:pl-0">
                       <div className="md:hidden mb-2">
-                        <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold">{step.num}. {step.title}</h3>
+                        <h3 className="font-display text-xl font-bold">{step.num}. {step.title}</h3>
                         <p className="text-sm font-semibold">{step.sub}</p>
                       </div>
                       <p className="text-sm text-navydark/70 glass-panel p-4 rounded-xl">{step.desc}</p>
@@ -1151,7 +1152,7 @@ export default function ClientPage() {
                   <>
                     <div className="w-full md:w-5/12 pl-16 md:pl-0 md:text-right order-2 md:order-1">
                       <div className="md:hidden mb-2">
-                        <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold">{step.num}. {step.title}</h3>
+                        <h3 className="font-display text-xl font-bold">{step.num}. {step.title}</h3>
                         <p className="text-sm font-semibold">{step.sub}</p>
                       </div>
                       <p className="text-sm text-navydark/70 glass-panel p-4 rounded-xl">{step.desc}</p>
@@ -1160,7 +1161,7 @@ export default function ClientPage() {
                       <div className="w-3 h-3 bg-navydark/20 rounded-full" />
                     </div>
                     <div className="hidden md:block w-5/12 order-3">
-                      <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold">{step.num}. {step.title}</h3>
+                      <h3 className="font-display text-xl font-bold">{step.num}. {step.title}</h3>
                       <p className="text-sm font-semibold mt-1">{step.sub}</p>
                     </div>
                   </>
@@ -1172,7 +1173,7 @@ export default function ClientPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 max-w-3xl mx-auto px-6 reveal">
+      <section className="py-24 max-w-3xl mx-auto px-6 reveal" aria-label="よくあるご質問">
         <h2 className="text-3xl font-bold text-center mb-12">よくあるご質問</h2>
         <div className="space-y-4">
           {[
@@ -1239,7 +1240,7 @@ export default function ClientPage() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Sparkle size={24} weight="fill" className="text-brand" />
-              <span className="font-[family-name:var(--font-outfit)] font-semibold text-xl tracking-tight">
+              <span className="font-display font-semibold text-xl tracking-tight">
                 AI Prompt LAB
               </span>
             </div>
@@ -1248,7 +1249,7 @@ export default function ClientPage() {
             </p>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-outfit)] font-semibold mb-4">サービス</h4>
+            <h4 className="font-display font-semibold mb-4">サービス</h4>
             <ul className="space-y-2 text-sm text-navydark/60">
               <li><a href="#" className="hover:text-brand transition-colors">業務プロセスマイニング</a></li>
               <li><a href="#" className="hover:text-brand transition-colors">AIエージェント開発</a></li>
@@ -1257,7 +1258,7 @@ export default function ClientPage() {
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-outfit)] font-semibold mb-4">運営会社</h4>
+            <h4 className="font-display font-semibold mb-4">運営会社</h4>
             <ul className="space-y-2 text-sm text-navydark/60">
               <li className="font-medium text-navydark/80">株式会社COMON CENTER</li>
               <li>代表取締役 桑原竣亮</li>

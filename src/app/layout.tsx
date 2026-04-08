@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,7 +30,35 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "AI Prompt LAB",
+              alternateName: "AIプロンプトラボ",
+              url: SITE_URL,
+              description:
+                "AIエージェントによる業務変革。月額制で企業のオペレーション自動化を支援。",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "九段南1-5-6 りそな九段ビル 5F",
+                addressLocality: "千代田区",
+                addressRegion: "東京都",
+                postalCode: "102-0074",
+                addressCountry: "JP",
+              },
+              parentOrganization: {
+                "@type": "Organization",
+                name: "株式会社COMON CENTER",
+              },
+            }),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
