@@ -706,100 +706,211 @@ export default function ClientPage() {
       {/* 事例 */}
       <section id="cases" className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 reveal">
-            <div>
-              <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-brand text-sm font-semibold mb-2 block">
-                Proven Results
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold">圧倒的なROIの証明</h2>
+          {/* ヘッダー */}
+          <div className="text-center mb-16 sm:mb-20 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 border border-white/80 backdrop-blur-md mb-6">
+              <Sparkle size={14} weight="fill" className="text-brand" />
+              <span className="font-[family-name:var(--font-outfit)] text-xs font-semibold tracking-[0.2em] text-navydark/60 uppercase">実績紹介</span>
             </div>
-            <p className="text-navydark/60 max-w-sm mt-4 md:mt-0 text-sm">
-              私たちは概念実証(PoC)で終わりません。実業務への実装と、実際のコスト削減効果にコミットします。
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tight text-navydark mb-6">
+              導入<span className="text-brand">事例</span>
+            </h2>
+            <p className="text-navydark/70 text-base sm:text-lg font-medium max-w-2xl mx-auto">
+              AI実装がもたらす、圧倒的な成果。
+              <br className="hidden md:block" />
+              既存の限界を突破したクライアント様の事例をご紹介します。
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 md:auto-rows-[280px]">
-            {/* メインケース */}
-            <div className="glass-panel p-8 rounded-[2rem] md:col-span-2 md:row-span-2 flex flex-col justify-between reveal relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/50 text-xs font-semibold mb-6">
-                  物流業界 / カスタマーサポート
+          <div className="flex flex-col gap-12 md:gap-16">
+
+            {/* ========== 事例01: FB5000 ========== */}
+            <div className="glass-panel rounded-2xl sm:rounded-[2.5rem] p-5 sm:p-8 md:p-12 flex flex-col xl:flex-row gap-8 md:gap-12 reveal">
+              {/* 左: コンテキスト */}
+              <div className="w-full xl:w-2/5 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="font-[family-name:var(--font-outfit)] text-4xl font-light text-navydark/20">01</span>
+                    <div className="h-px flex-1 bg-navydark/10" />
+                  </div>
+                  <div className="inline-block px-3 py-1 bg-navydark/5 border border-navydark/10 rounded-md text-xs font-bold text-navydark/70 tracking-wider mb-4">
+                    META広告運用代行
+                  </div>
+                  <p className="text-sm text-navydark/50 font-medium mb-2">
+                    株式会社バジェットアドテクノロジーズ / FB5000
+                  </p>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-4">
+                    150社以上のFB運用を
+                    <br />
+                    AI全自動化で2名体制に
+                  </h3>
+                  <p className="text-navydark/60 text-sm leading-relaxed mb-6">
+                    150社以上のクライアントを抱えるFB運用代行事業。運用ワーカー30名+ディレクター3名の体制が、全体管理者+ディレクターの2名に。FBアカウント運用、戦略立案、データ集計、リスト化、ターゲティングまでAIが全自動で実行。従来のシステム会社に依頼し6ヶ月間実装できなかったシステムを、依頼後わずか14日で運用開始。
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 leading-snug">
-                  30名のサポート拠点を、
-                  <br />
-                  2名+特化型AIエージェントに集約。
-                </h3>
-                <p className="text-navydark/70 text-sm">
-                  過去の対応履歴、マニュアル、社内規定を学習したLLMが一次対応を完結。複雑なエスカレーションのみを人間が対応するハイブリッド体制を構築。
-                </p>
+                <div className="flex gap-2 flex-wrap">
+                  <span className="px-3 py-1.5 rounded-full bg-white/50 text-xs font-medium border border-white/80 text-navydark/70 flex items-center gap-1.5 backdrop-blur-md">
+                    <Robot size={14} /> AI全自動運用
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-white/50 text-xs font-medium border border-white/80 text-navydark/70 flex items-center gap-1.5 backdrop-blur-md">
+                    <Lightning size={14} weight="fill" /> 14日ローンチ
+                  </span>
+                </div>
               </div>
-              <div className="relative z-10 bg-white/40 rounded-2xl p-6 mt-8 border border-white/50">
-                <div className="flex justify-between items-end border-b border-navydark/10 pb-4 mb-4">
+
+              {/* 右: データグリッド */}
+              <div className="w-full xl:w-3/5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* 体制変化 - 大カード */}
+                <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col justify-between sm:col-span-2 hover:-translate-y-1 transition-transform duration-300">
+                  <div className="flex items-center justify-between mb-6">
+                    <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase flex items-center gap-2">
+                      <Users size={16} /> 運用体制
+                    </h4>
+                    <div className="px-3 py-1 rounded-full bg-green-50 border border-green-200 text-green-700 text-xs font-bold font-[family-name:var(--font-outfit)] tracking-wider">
+                      94% 削減
+                    </div>
+                  </div>
+                  <div className="flex items-end gap-6 sm:gap-12">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-navydark/40 font-semibold uppercase tracking-widest mb-1">導入前</span>
+                      <span className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl text-navydark/30 line-through font-light">33<span className="text-base ml-1">名</span></span>
+                    </div>
+                    <ArrowRight size={20} className="text-brand/40 mb-2" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] text-brand font-semibold uppercase tracking-widest mb-1">導入後</span>
+                      <span className="font-[family-name:var(--font-outfit)] text-5xl sm:text-6xl md:text-7xl text-brand font-semibold tracking-tight">2<span className="text-2xl sm:text-3xl ml-1 font-bold">名</span></span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* コスト */}
+                <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300">
+                  <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase mb-6 flex items-center gap-2">
+                    月間コスト
+                  </h4>
                   <div>
-                    <p className="font-[family-name:var(--font-outfit)] text-sm text-navydark/60 mb-1">導入前</p>
-                    <p className="font-[family-name:var(--font-outfit)] font-semibold text-xl line-through text-navydark/40">30名体制</p>
-                  </div>
-                  <ArrowRight size={18} className="text-brand" />
-                  <div className="text-right">
-                    <p className="font-[family-name:var(--font-outfit)] text-sm text-navydark/60 mb-1">導入後</p>
-                    <p className="font-[family-name:var(--font-outfit)] font-bold text-3xl text-brand">2名 + AI 5体</p>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="font-[family-name:var(--font-outfit)] text-xl text-navydark/30 line-through">400万円</span>
+                      <ArrowRight size={14} className="text-navydark/20" />
+                    </div>
+                    <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">50<span className="text-lg text-navydark/60 ml-1">万円</span></span>
                   </div>
                 </div>
-                <p className="text-sm font-semibold flex items-center gap-2">
-                  <CheckCircle size={18} weight="fill" className="text-green-500" />
-                  対応スピード 80%向上 / 顧客満足度 15%UP
-                </p>
-              </div>
-            </div>
 
-            {/* ケース2 */}
-            <div className="glass-panel p-6 rounded-[2rem] md:col-span-2 flex flex-col justify-between reveal">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/50 text-xs font-semibold mb-4">
-                  IT業 / 経理・請求書処理
-                </div>
-                <h3 className="text-lg font-bold mb-2">手作業1,000件/月を完全自動化</h3>
-                <p className="text-navydark/70 text-xs">
-                  PDFからの読み取り、勘定科目の推論、会計システムへの入力をエージェント化。
-                </p>
-              </div>
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-navydark/5">
-                <div className="font-[family-name:var(--font-outfit)]">
-                  <p className="text-[10px] text-navydark/50">工数削減</p>
-                  <p className="text-2xl font-bold">-98%</p>
-                </div>
-                <div className="font-[family-name:var(--font-outfit)] text-right">
-                  <p className="text-[10px] text-navydark/50">エラー率</p>
-                  <p className="text-2xl font-bold text-green-600">0%</p>
+                {/* 開発期間 */}
+                <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden hover:-translate-y-1 transition-transform duration-300">
+                  <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase mb-6 flex items-center gap-2 relative z-10">
+                    ローンチ期間
+                  </h4>
+                  <div className="relative z-10">
+                    <div className="flex flex-col gap-1 mb-3">
+                      <span className="text-[10px] text-red-900/40 font-bold bg-red-100/50 px-2 py-0.5 rounded w-max">他社ベンダー</span>
+                      <span className="text-sm text-navydark/40 font-medium">6ヶ月間 実装できず</span>
+                    </div>
+                    <div className="h-px w-full bg-navydark/10 my-3" />
+                    <div className="flex items-baseline gap-1">
+                      <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl text-navydark font-semibold tracking-tight">14</span>
+                      <span className="text-sm font-bold text-navydark/60">日でローンチ</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 数値タイル */}
-            <div className="glass-panel p-6 rounded-[2rem] flex flex-col justify-center items-center text-center reveal">
-              <div className="w-12 h-12 rounded-full bg-brand/10 text-brand flex items-center justify-center mb-4">
-                <TrendUp size={20} />
+            {/* ========== 事例02: PLEASURE ONE ========== */}
+            <div className="glass-panel rounded-2xl sm:rounded-[2.5rem] p-5 sm:p-8 md:p-12 flex flex-col xl:flex-row-reverse gap-8 md:gap-12 reveal">
+              {/* 右: コンテキスト */}
+              <div className="w-full xl:w-2/5 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="h-px flex-1 bg-navydark/10" />
+                    <span className="font-[family-name:var(--font-outfit)] text-4xl font-light text-navydark/20">02</span>
+                  </div>
+                  <div className="inline-block px-3 py-1 bg-navydark/5 border border-navydark/10 rounded-md text-xs font-bold text-navydark/70 tracking-wider mb-4 xl:float-right">
+                    会員制SaaS
+                  </div>
+                  <div className="clear-both" />
+                  <p className="text-sm text-navydark/50 font-medium mb-2 xl:text-right">
+                    株式会社DoOver / PLEASURE ONE
+                  </p>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-4 xl:text-right">
+                    ホスピタリティ向け
+                    <br />
+                    会員制SaaSを5日で構築
+                  </h3>
+                  <p className="text-navydark/60 text-sm leading-relaxed mb-6 xl:text-right">
+                    シーシャ・サウナ店舗を展開するクライアント。会員管理システム、ユーザー向けLINE連携、Stripe定額決済、管理画面の設計・開発を一気通貫で実施。外部見積もり400万円・3ヶ月の案件を、月額20万円・わずか5日で運用開始まで完了。
+                  </p>
+                </div>
+                <div className="flex gap-2 flex-wrap xl:justify-end">
+                  <span className="px-3 py-1.5 rounded-full bg-white/50 text-xs font-medium border border-white/80 text-navydark/70 flex items-center gap-1.5 backdrop-blur-md">
+                    <RocketLaunch size={14} /> 超高速構築
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-white/50 text-xs font-medium border border-white/80 text-navydark/70 flex items-center gap-1.5 backdrop-blur-md">
+                    <Lightning size={14} weight="fill" /> 5日ローンチ
+                  </span>
+                </div>
               </div>
-              <p className="font-[family-name:var(--font-outfit)] text-3xl font-bold mb-1">4,200<span className="text-lg">万円</span></p>
-              <p className="text-xs text-navydark/60 font-semibold">年間平均コスト削減額</p>
+
+              {/* 左: データグリッド */}
+              <div className="w-full xl:w-3/5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* 開発アプローチ比較 - 大カード */}
+                <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col justify-center sm:col-span-2 hover:-translate-y-1 transition-transform duration-300">
+                  <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase mb-6 flex items-center gap-2">
+                    開発アプローチの違い
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-6 items-center">
+                    {/* 従来 */}
+                    <div className="bg-navydark/[0.02] border border-navydark/5 rounded-2xl p-5 flex flex-col gap-2">
+                      <span className="text-[10px] font-bold text-navydark/40 tracking-wider">外部見積もり</span>
+                      <div className="font-[family-name:var(--font-outfit)] text-xl text-navydark/40 font-light">初期 400万円</div>
+                      <div className="text-sm text-navydark/40 flex items-center gap-1">
+                        <Clock size={14} /> 開発期間 3ヶ月
+                      </div>
+                    </div>
+                    {/* 矢印 */}
+                    <div className="hidden sm:flex flex-col items-center justify-center text-brand/40">
+                      <ArrowRight size={24} weight="bold" />
+                    </div>
+                    <div className="flex sm:hidden justify-center text-brand/40 py-1">
+                      <ArrowRight size={20} weight="bold" className="rotate-90" />
+                    </div>
+                    {/* AI */}
+                    <div className="bg-white/80 border border-brand/20 rounded-2xl p-5 flex flex-col gap-2" style={{ boxShadow: "0 8px 16px -6px rgba(124,92,252,0.15)" }}>
+                      <span className="text-[10px] font-bold text-brand tracking-wider">AIプロンプトラボ</span>
+                      <div className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl text-brand font-semibold tracking-tight">
+                        月額 20<span className="text-base text-brand/70 ml-1">万円</span>
+                      </div>
+                      <div className="text-sm font-bold text-navydark flex items-center gap-1.5">
+                        <RocketLaunch size={14} weight="fill" className="text-brand" /> 5日間でローンチ
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 実装機能 */}
+                <div className="glass-panel rounded-2xl sm:rounded-3xl p-6 flex flex-col justify-between sm:col-span-2 hover:-translate-y-1 transition-transform duration-300">
+                  <h4 className="text-xs font-bold text-navydark/50 tracking-wider uppercase mb-4 flex items-center gap-2">
+                    実装機能
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-xl border border-navydark/5 shadow-sm">
+                      <div className="w-6 h-6 rounded bg-[#00B900] flex items-center justify-center text-white text-[10px] font-bold">LINE</div>
+                      <span className="text-xs font-bold text-navydark/80">LINEログイン/連携</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-xl border border-navydark/5 shadow-sm">
+                      <div className="w-6 h-6 rounded bg-[#635BFF] flex items-center justify-center text-white text-[10px] font-bold">S</div>
+                      <span className="text-xs font-bold text-navydark/80">Stripe定額決済</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-xl border border-navydark/5 shadow-sm">
+                      <div className="w-6 h-6 rounded bg-navydark flex items-center justify-center text-white text-[10px] font-bold">DB</div>
+                      <span className="text-xs font-bold text-navydark/80">専用管理画面</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* CTAタイル */}
-            <a
-              href="#contact"
-              className="glass-panel p-6 rounded-[2rem] bg-brand text-white flex flex-col justify-center items-center text-center reveal group cursor-pointer hover:bg-navydark transition-colors"
-            >
-              <p className="font-bold text-lg mb-2">
-                自社のポテンシャルを
-                <br />
-                診断する
-              </p>
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mt-2 group-hover:scale-110 transition-transform">
-                <ArrowUpRight size={20} />
-              </div>
-            </a>
           </div>
         </div>
       </section>
