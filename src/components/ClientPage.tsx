@@ -30,6 +30,9 @@ import {
   UserMinus,
   List,
   X,
+  Clock,
+  Lightning,
+  Hourglass,
 } from "@phosphor-icons/react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -96,7 +99,7 @@ export default function ClientPage() {
                 <Sparkle size={18} weight="fill" />
               </div>
               <span className="font-[family-name:var(--font-outfit)] font-semibold text-lg tracking-tight">
-                Prompt LAB
+                AI Prompt LAB
               </span>
             </div>
             <div className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -406,7 +409,7 @@ export default function ClientPage() {
               AI実装後の<span className="text-brand">世界</span>
             </h2>
             <p className="text-muted text-lg max-w-2xl mx-auto">
-              Prompt LABが提供するのは、単なるツールの導入ではありません。人間がより「創造的で本質的な仕事」に集中できるアーキテクチャへのシフトです。
+              AIプロンプトラボが提供するのは、単なるツールの導入ではありません。人間がより「創造的で本質的な仕事」に集中できるアーキテクチャへのシフトです。
             </p>
           </div>
 
@@ -427,7 +430,7 @@ export default function ClientPage() {
                   <Robot size={24} weight="fill" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold tracking-widest text-brand mb-1">Prompt LAB 導入後</p>
+                  <p className="text-xs font-bold tracking-widest text-brand mb-1">AIプロンプトラボ導入後</p>
                   <p className="text-2xl font-bold text-navydark">運用コスト: <span className="text-brand underline decoration-brand/30 underline-offset-4">30万/月</span></p>
                 </div>
               </div>
@@ -580,6 +583,126 @@ export default function ClientPage() {
         </div>
       </section>
 
+      {/* ========== 業務時間削減セクション ========== */}
+      <section className="py-24 lg:py-32 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[400px] rounded-full pointer-events-none" style={{ background: "var(--color-brand)", filter: "blur(160px)", opacity: 0.06 }} />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-8">
+
+            {/* 左パネル: ヒーローインパクト */}
+            <div className="xl:col-span-5 glass-panel rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-10 lg:p-12 flex flex-col justify-between min-h-[500px] lg:min-h-[600px] relative reveal">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-50 pointer-events-none rounded-2xl sm:rounded-[2.5rem]" />
+
+              {/* ヘッダー */}
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand/20 bg-brand/5 backdrop-blur-md mb-6">
+                  <Clock size={16} weight="fill" className="text-brand" />
+                  <span className="font-[family-name:var(--font-outfit)] text-brand font-bold tracking-widest text-xs uppercase">Time Savings</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[1.2] tracking-tight text-navydark">
+                  圧倒的な
+                  <br />
+                  <span className="text-brand">時間革命。</span>
+                </h2>
+                <p className="mt-5 text-muted font-medium text-sm sm:text-base leading-relaxed max-w-md">
+                  AIプロンプトラボがもたらす、劇的な業務効率化。30名規模のチームにおける月間労働時間を大幅に短縮し、コア業務への集中を可能にします。
+                </p>
+              </div>
+
+              {/* 大数字 + ゲージ */}
+              <div className="mt-12 sm:mt-16 relative z-10">
+                <div className="flex items-baseline gap-1 sm:gap-2 mb-8">
+                  <span className="font-[family-name:var(--font-outfit)] text-7xl sm:text-8xl md:text-[8rem] leading-none font-black text-brand tracking-tighter">
+                    85
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-[family-name:var(--font-outfit)] text-3xl sm:text-5xl font-bold text-brand leading-none">%</span>
+                    <span className="text-lg sm:text-2xl font-bold text-navydark mt-1">削減</span>
+                  </div>
+                </div>
+
+                {/* ゲージバー */}
+                <div className="space-y-5">
+                  <div className="flex items-end justify-between border-b border-brand/10 pb-3">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] sm:text-xs font-bold tracking-wider text-muted/60 uppercase">Team Size</span>
+                      <span className="font-medium text-navydark/60">30名体制</span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                      <span className="text-[10px] sm:text-xs font-bold tracking-wider text-muted/60 uppercase">Monthly Hours</span>
+                      <span className="font-[family-name:var(--font-outfit)] font-bold text-navydark text-lg">業務時間推移</span>
+                    </div>
+                  </div>
+
+                  <div className="relative w-full pt-4 pb-8">
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-muted/60 mb-2">
+                      <span>導入前</span>
+                      <span className="font-[family-name:var(--font-outfit)]">4,800 h/月</span>
+                    </div>
+                    <div className="h-6 sm:h-8 w-full rounded-2xl bg-white border border-brand/10 shadow-inner relative overflow-hidden eliminated-pattern">
+                      <div className="absolute top-0 left-0 h-full rounded-2xl bg-gradient-to-r from-brand to-brand-light" style={{ width: "15%", boxShadow: "0 0 20px rgba(124,92,252,0.4)" }}>
+                        <div className="absolute right-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
+                      </div>
+                    </div>
+                    <div className="mt-2 text-brand font-bold text-xs sm:text-sm flex items-center gap-2">
+                      <div className="w-0.5 h-3 bg-brand ml-4" />
+                      導入後 <span className="font-[family-name:var(--font-outfit)] text-xl sm:text-2xl font-black">720 <span className="text-sm text-brand/80">h/月</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 右パネル: ブレイクダウンカード */}
+            <div className="xl:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 content-start">
+              {[
+                { task: "データ入力・転記", before: "200h", after: "6h", reduction: "97", icon: <FileText size={20} /> },
+                { task: "問い合わせ対応", before: "1,200h", after: "180h", reduction: "85", icon: <Users size={20} /> },
+                { task: "レポート・資料作成", before: "800h", after: "48h", reduction: "94", icon: <MagicWand size={20} /> },
+                { task: "請求書・経理処理", before: "150h", after: "3h", reduction: "98", icon: <Hourglass size={20} /> },
+              ].map((item) => (
+                <div key={item.task} className="glass-panel rounded-2xl sm:rounded-[2rem] p-6 lg:p-8 hover:-translate-y-2 transition-all duration-500 hover:shadow-xl group reveal">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </div>
+                      <h3 className="font-bold text-navydark text-sm lg:text-base">{item.task}</h3>
+                    </div>
+                    <div className="font-[family-name:var(--font-outfit)] text-3xl lg:text-4xl font-black text-brand tracking-tighter">
+                      {item.reduction}%
+                      <span className="text-sm font-medium block text-right -mt-1">減</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mt-auto">
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-[family-name:var(--font-outfit)] text-muted/60 font-medium text-sm">
+                        <span className="text-[10px] uppercase block mb-[-2px]">導入前</span>
+                        {item.before}
+                      </span>
+                      <ArrowRight size={14} className="text-brand/40" />
+                      <span className="font-[family-name:var(--font-outfit)] text-brand font-bold text-xl text-right">
+                        <span className="text-[10px] block text-right mb-[-2px]">導入後</span>
+                        {item.after}
+                      </span>
+                    </div>
+                    <div className="h-2 w-full bg-white rounded-full overflow-hidden eliminated-pattern border border-black/5 shadow-inner">
+                      <div className="h-full bg-brand rounded-full" style={{ width: `${100 - parseInt(item.reduction)}%` }} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-muted mt-8 reveal">
+            ※ 上記は30名体制の一般的な中小企業における導入効果の想定値です。実際の削減効果は業務内容により異なります。
+          </p>
+        </div>
+      </section>
+
       {/* 事例 */}
       <section id="cases" className="py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6">
@@ -728,7 +851,7 @@ export default function ClientPage() {
                   <span className="font-[family-name:var(--font-outfit)] text-xl md:text-2xl text-muted font-medium tracking-wider">ヶ月</span>
                 </div>
                 <p className="text-sm text-navydark font-medium mt-4 pt-4 border-t border-navydark/10">
-                  Prompt LAB導入後、投資回収（損益分岐点）に達するまでの平均期間
+                  AIプロンプトラボ導入後、投資回収（損益分岐点）に達するまでの平均期間
                 </p>
               </div>
             </div>
@@ -1006,11 +1129,11 @@ export default function ClientPage() {
             <div className="flex items-center gap-2 mb-4">
               <Sparkle size={24} weight="fill" className="text-brand" />
               <span className="font-[family-name:var(--font-outfit)] font-semibold text-xl tracking-tight">
-                Prompt LAB
+                AI Prompt LAB
               </span>
             </div>
             <p className="text-sm text-navydark/60 max-w-sm">
-              AIエージェントによる業務変革で、企業の非連続な成長を支援します。月額制で導入リスクを最小限に。
+              AIプロンプトラボは、AIエージェントによる業務変革で企業の非連続な成長を支援します。月額制で導入リスクを最小限に。
             </p>
           </div>
           <div>

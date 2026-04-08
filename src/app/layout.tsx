@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Prompt LAB | COMON CENTER",
+  title: "AI Prompt LAB | COMON CENTER",
   description:
     "AIエージェントによる業務変革。月額10万円から、30名体制を2名+AIに。導入初期費用0円。",
   openGraph: {
-    title: "Prompt LAB | COMON CENTER",
+    title: "AI Prompt LAB | COMON CENTER",
     description:
       "AIを導入するのではなく、AIと経営する。月額制AIエージェント導入パートナー。",
     locale: "ja_JP",

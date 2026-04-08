@@ -140,6 +140,17 @@ body {
   animation: dash-move 20s linear infinite;
 }
 
+/* ---- Eliminated Pattern (斜線) ---- */
+.eliminated-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    rgba(124, 92, 252, 0.06) 4px,
+    rgba(124, 92, 252, 0.06) 8px
+  );
+}
+
 /* ---- FAQ Details ---- */
 details summary::-webkit-details-marker { display: none; }
 details summary::marker { display: none; content: ""; }
